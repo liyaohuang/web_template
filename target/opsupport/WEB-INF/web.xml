@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_opsupport" version="2.5">
+	
+	<context-param>  
+	    <param-name>logbackConfigLocation</param-name>  
+	    <param-value>WEB-INF/logback.xml</param-value>  
+	</context-param>    
+	<listener>  
+	    <listener-class>ch.qos.logback.ext.spring.web.LogbackConfigListener</listener-class>  
+	</listener>
+	
+	
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/spring/applicationContext.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	<servlet>
+		<servlet-name>dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/dispatcher-servlet.xml</param-value>
+			<!-- 
+			contextConfigLocation指明了配置文件的文件名，不使用则默认配置文件名（ WEB-INF文件夹下寻找名为[servlet-name]-servlet.xml ）
+			其中<param-value>**.xml</param-value> 这里可以使用多种写法
+			1、不写,使用默认值:/WEB-INF/<servlet-name>-servlet.xml
+			2、<param-value>/WEB-INF/classes/springMVC.xml</param-value>
+			3、<param-value>classpath*:springMVC-mvc.xml</param-value>
+			4、多个值用逗号分隔
+			 -->
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name>
+		<url-pattern>*.htm</url-pattern>
+	</servlet-mapping>
+</web-app>
